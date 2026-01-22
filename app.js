@@ -5,7 +5,18 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// 可能な環境では横画面ロック（Chrome / Android）
-if (screen.orientation && screen.orientation.lock) {
-  screen.orientation.lock('landscape').catch(() => {});
+// iframe操作
+const iframe = document.querySelector('iframe');
+
+function reloadFrame() {
+  iframe.contentWindow.location.reload();
+}
+
+function changeUrl(type) {
+  if (type === 1) {
+    iframe.src = 'https://sakurazaka46.com/';
+  }
+  if (type === 2) {
+    iframe.src = 'https://www.google.com/';
+  }
 }
