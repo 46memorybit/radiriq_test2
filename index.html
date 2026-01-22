@@ -2,8 +2,11 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>PWA iframe App</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>PWA Landscape Only</title>
 
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="theme-color" content="#000000" />
@@ -14,14 +17,15 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
-      background: #111;
+      background: #000;
       color: #fff;
     }
 
-    .container {
+    /* ===== レイアウト ===== */
+    .app {
       display: flex;
-      height: 100vh;
       width: 100vw;
+      height: 100vh;
     }
 
     .left {
@@ -51,23 +55,57 @@
     }
 
     button {
-      padding: 12px;
+      padding: 14px;
       font-size: 16px;
+    }
+
+    /* ===== 縦画面ブロック ===== */
+    #orientation-lock {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      color: #fff;
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 22px;
+      padding: 20px;
+    }
+
+    @media (orientation: portrait) {
+      #orientation-lock {
+        display: flex;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
+  <!-- 縦画面ブロック -->
+  <div id="orientation-lock">
+    <div>
+      <p>このアプリは横画面専用です</p>
+      <p>端末を横にしてください</p>
+    </div>
+  </div>
+
+  <!-- アプリ本体 -->
+  <div class="app">
     <div class="left"></div>
 
     <div class="center">
-      <iframe src="https://sakurazaka46.com/s/s46/?ima=0000"></iframe>
+      <iframe
+        src="https://sakurazaka46.com/s/s46/?ima=0000"
+        allowfullscreen
+      ></iframe>
     </div>
 
     <div class="right">
-      <button>ボタン1</button>
-      <button>ボタン2</button>
-      <button>ボタン3</button>
+      <button onclick="reloadFrame()">リロード</button>
+      <button onclick="changeUrl(1)">ページ1</button>
+      <button onclick="changeUrl(2)">ページ2</button>
     </div>
   </div>
 
